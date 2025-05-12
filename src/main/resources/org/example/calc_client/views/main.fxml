@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.calc_client.controller.MainController">
+    <top>
+        <Label text="Сначала авторизируйтесь"/>
+    </top>
+    <center>
+        <VBox spacing="10" alignment="CENTER">
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Login" onAction="#showLogin"/>
+                <Button text="Register" onAction="#showRegister"/>
+            </HBox>
+            <BorderPane fx:id="mainContainer"/>
+        </VBox>
+    </center>
+</BorderPane>

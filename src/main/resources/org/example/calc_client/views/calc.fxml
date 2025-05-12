@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.calc_client.controller.CalculatorController">
+
+    <top>
+        <VBox spacing="10" styleClass="calculator-container">
+            <Label text="Currency Converter" styleClass="title-label"/>
+
+            <HBox spacing="10">
+                <TextField fx:id="amountField" promptText="Amount"/>
+                <ComboBox fx:id="fromCurrencyCombo" promptText="From"/>
+                <Label text="to"/>
+                <ComboBox fx:id="toCurrencyCombo" promptText="To"/>
+                <Button text="Convert" onAction="#handleConvert"/>
+            </HBox>
+
+            <Label fx:id="resultLabel" styleClass="result-label"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="10" styleClass="calculator-container">
+            <Label text="Ohm's Law Calculator (V = I × R)" styleClass="title-label"/>
+
+            <GridPane hgap="10" vgap="10">
+                <Label text="Voltage (V):" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="voltageField" promptText="Volts" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Current (I):" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="currentField" promptText="Amperes" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Resistance (R):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="resistanceField" promptText="Ohms" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <Button text="Calculate" onAction="#handleCalculate"/>
+
+            <Label fx:id="errorLabel" styleClass="error-label"/>
+        </VBox>
+    </center>
+
+    <bottom>
+        <Button text="Show history" onAction="#handleHistory"/>
+    </bottom>
+    <BorderPane fx:id="calcContainer"/>
+
+</BorderPane>
