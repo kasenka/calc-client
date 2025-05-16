@@ -6,48 +6,66 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.calc_client.controller.CalculatorController">
+            fx:controller="org.example.calc_client.controller.CalculatorController"
+            style="-fx-padding: 20;">
 
     <top>
-        <VBox spacing="10" styleClass="calculator-container">
+        <VBox spacing="20" styleClass="calculator-container" style="-fx-padding: 10;">
             <Label text="Currency Converter" styleClass="title-label"/>
+            <Label fx:id="curErrorLabel" style="-fx-text-fill: red;" visible="false"/>
 
-            <HBox spacing="10">
-                <TextField fx:id="amountField" promptText="Amount"/>
-                <ComboBox fx:id="fromCurrencyCombo" promptText="From"/>
-                <Label text="to"/>
-                <ComboBox fx:id="toCurrencyCombo" promptText="To"/>
-                <Button text="Convert" onAction="#handleConvert"/>
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <TextField fx:id="amountField" promptText="Amount" style="-fx-pref-width: 150;"/>
+                <ComboBox fx:id="fromCurrencyCombo" promptText="From" style="-fx-pref-width: 150;"/>
+                <Label text="to" style="-fx-padding: 0 5 0 5;"/>
+                <ComboBox fx:id="toCurrencyCombo" promptText="To" style="-fx-pref-width: 150;"/>
+                <Button text="Convert" onAction="#handleConvert" style="-fx-pref-width: 100;"/>
             </HBox>
 
-            <Label fx:id="resultLabel" styleClass="result-label"/>
+            <Label fx:id="curResultLabel" styleClass="result-label" style="-fx-padding: 10 0 0 0;"/>
         </VBox>
     </top>
 
     <center>
-        <VBox spacing="10" styleClass="calculator-container">
-            <Label text="Ohm's Law Calculator (V = I × R)" styleClass="title-label"/>
+        <StackPane style="-fx-padding: 20 0 20 0;">
+            <VBox spacing="20" styleClass="calculator-container" style="-fx-padding: 10;">
+                <Label text="Ohm's Law Calculator (V = I × R)" styleClass="title-label"/>
+                <Label fx:id="ohmsErrorLabel" style="-fx-text-fill: red;" visible="false"/>
 
-            <GridPane hgap="10" vgap="10">
-                <Label text="Voltage (V):" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="voltageField" promptText="Volts" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <GridPane hgap="15" vgap="15" style="-fx-padding: 0 0 10 0;">
+                    <Label text="Voltage (V):" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="voltageField" promptText="Volts" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                <Label text="Current (I):" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="currentField" promptText="Amperes" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <Label text="Current (I):" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="currentField" promptText="Amperes" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                <Label text="Resistance (R):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="resistanceField" promptText="Ohms" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-            </GridPane>
+                    <Label text="Resistance (R):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="resistanceField" promptText="Ohms" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                </GridPane>
 
-            <Button text="Calculate" onAction="#handleCalculate"/>
+                <Label fx:id="ohmsResultLabel" styleClass="result-label"/>
+                <Button text="Calculate" onAction="#handleCalculate" style="-fx-pref-width: 200;"/>
 
-            <Label fx:id="errorLabel" styleClass="error-label"/>
-        </VBox>
+                <VBox fx:id="delete" spacing="15" styleClass="calculator-container" visible="false"
+                      style="-fx-padding: 20 0 0 0;">
+                    <Label fx:id="delErrorLabel" style="-fx-text-fill: red;" visible="false"/>
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ComboBox fx:id="deleteUser" promptText="Юзернейм" style="-fx-pref-width: 200;"/>
+                        <Button text="Удалить юзера" onAction="#handleDelete"/>
+                    </HBox>
+                    <Label fx:id="successMessage" styleClass="result-label"/>
+                </VBox>
+            </VBox>
+        </StackPane>
     </center>
 
     <bottom>
-        <Button text="Show history" onAction="#handleHistory"/>
+        <HBox spacing="20" alignment="CENTER" style="-fx-padding: 0 0 20 0;">
+            <Button text="Посмотреть историю" onAction="#handleHistory" style="-fx-pref-width: 200;"/>
+            <Button fx:id="withRole" text="Создать новый курс" onAction="#handleNewCurrency"
+                    visible="false" style="-fx-pref-width: 200;"/>
+        </HBox>
     </bottom>
-    <BorderPane fx:id="calcContainer"/>
 
+    <BorderPane fx:id="calcContainer"/>
 </BorderPane>

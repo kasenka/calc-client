@@ -1,6 +1,5 @@
-package org.example.calc_client;
+package org.example.calc_client.model;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import lombok.Getter;
 import lombok.Setter;
 

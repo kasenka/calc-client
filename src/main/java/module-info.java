@@ -19,4 +19,6 @@ module org.example.calc_client {
     exports org.example.calc_client;
     exports org.example.calc_client.controller;
     opens org.example.calc_client.controller to javafx.fxml;
+    exports org.example.calc_client.model;
+    opens org.example.calc_client.model to javafx.fxml;
 }

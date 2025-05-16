@@ -1,10 +1,7 @@
 package org.example.calc_client.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,20 +9,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.example.calc_client.ApiErrorResponse;
-import org.example.calc_client.Session;
+import org.example.calc_client.model.Session;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientResponseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class AuthController {
     @FXML
@@ -37,7 +29,7 @@ public class AuthController {
 
     private final String API_BASE_URL = "http://localhost:8080/api";
     private final RestTemplate restTemplate = new RestTemplate();
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     // Login fields
     @FXML private TextField loginUsernameField;
@@ -50,10 +42,8 @@ public class AuthController {
     @FXML private PasswordField regConfirmPasswordField;
     @FXML private Label regErrorLabel;
 
-    private String processErrorResponse(HttpClientErrorException e) throws Exception {
-
-        String responseBody = e.getResponseBodyAsString();
-        JsonNode result = objectMapper.readTree(responseBody);
+    public static String processErrorResponse(HttpClientErrorException e) throws Exception {
+        JsonNode result = objectMapper.readTree(e.getResponseBodyAsString());
 
         if (result.has("error")) {
             String error = result.get("error").asText();
@@ -94,7 +84,9 @@ public class AuthController {
 
             if (response.getStatusCode() == HttpStatus.OK) {
                 String jwtToken = (String) response.getBody().get("jwt");
+                String role = (String) response.getBody().get("role");
                 Session.setJwt(jwtToken);
+                Session.setRole(role);
 
                 System.out.println("Login successful! JWT: " + jwtToken);
 
@@ -156,6 +148,7 @@ public class AuthController {
         }catch (HttpClientErrorException e){
              if (e.getStatusCode() == HttpStatus.BAD_REQUEST) {
                 try{
+
                     String error = processErrorResponse(e);
                     showRegisterError(error);
                 }catch (Exception ex){
